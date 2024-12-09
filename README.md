@@ -1,18 +1,69 @@
-## Getting Started
+						METRO Shopping Store Data Warehouse - Project Setup Guide
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Prerequisites:
 
-## Folder Structure
+	Windows Operating System
+	Visual Studio Code (VSCode)
+	MySQL Server (version 8.0 or higher)
+	Java Development Kit (JDK 17 or higher)
+	MySQL Connector/J (mysql-connector-j-9.1.0.jar)
 
-The workspace contains two folders by default, where:
+Project Setup Steps
+     1. Database Setup
+	Open MySQL Workbench
+	Copy and execute Warehouse.sql to create database schema:
+        Execute the schema creation script
+        source path/to/Warehouse.sql
+2. Project Structure Setup
+	following directory structure:
+	warehouse/
+	├── main/
+  	  ├── src/
+   	 │   ├── App.java
+   	 │   ├── MeshJoin.java
+   	 │   └── DateUtils.java
+   	 ├── lib/
+   	 │   └── mysql-connector-j-9.1.0.jar
+   	 ├── customers_data.csv
+   	 ├── products_data.csv
+   	 └── transactions_data.csv
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+3. VSCode Setup
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+	Open VSCode
+	Install Java Extension Pack if not already installed
+	Open the project folder: File -> Open Folder -> Select 'warehouse' folder
+	Set up Java classpath:
+	Press Ctrl+Shift+P
+	Type "Java: Configure Classpath"
+	Add mysql-connector-j-9.1.0.jar to Referenced Libraries
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
 
-## Dependency Management
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+4. Compile and Run Instructions
+
+	Open terminal in VSCode (Ctrl+`)
+	Navigate to project directory:
+	 path/to/warehouse/main
+	Compile the Java files:
+	javac -cp ".;lib/mysql-connector-j-9.1.0.jar" src/*.java
+Run the application:
+	java -cp ".;lib/mysql-connector-j-9.1.0.jar;." src.App
+
+5. Database Connection
+
+	When prompted, enter:
+	Database URL: jdbc:mysql://localhost:3306/metro
+	Username: your_mysql_username
+	Password: your_mysql_password
+
+6. Verify Data Loading
+
+	After running, verify data loading by executing these queries in MySQL:
+	sqlCopy-- Check loaded data
+	SELECT COUNT(*) FROM DIM_CUSTOMER;
+	SELECT COUNT(*) FROM DIM_PRODUCT;
+	SELECT COUNT(*) FROM DIM_STORE;
+	SELECT COUNT(*) FROM FACT_SALES;
+
+7. Execute OLAP Queries
